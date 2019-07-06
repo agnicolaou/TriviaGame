@@ -1,65 +1,72 @@
-let questions = [
-    {
-        question: "Which movie was Vince Vaughn NOT in?",
-        answers: ["The Lost World: Jurassic Park", "Anchorman", "Starsky & Hutch", "Zoolander 2"],
-        correctAnswer: "Zoolander 2"
-    },
-    {
-        question: "Which horror film was NOT based on a Stephen King novel?",
-        answers: ["The Shining", "Halloween", "Pet Sematary", "It"],
-        correctAnswer: "Halloween"
-    },
-    {
-        question: "Which of these Steven Spielberg films was realesed first?",
-        answers: ["E.T.", "Jaws", "Close Encounters of the Third Kind", "War of the Worlds"],
-        correctAnswer: "Jaws"
-    }
-
-];
-
-
-var answerButtons = $("#answerButtons");
-var radioButton = $('<input type="radio" name="rbtnCount" />');
-
-//question display
-function displayQuestion() {
-    for (let i = 0; i < questions.length; i++) {
-        var newQDiv = $(
-
-            '<div class = "danger"> ' + questions[i].question + '</div>'
-            +
-            '<input type = "radio" value="0" class="space">' + questions[i].answers[0] + '</input> <br>'
-            +
-            '<input type = "radio" value="0">' + " "+ questions[i].answers[1] + '</input> <br>'
-            +
-            '<input type = "radio" value="0">' + " "+ questions[i].answers[2] + '</input> <br>'
-            +
-            '<input type = "radio" value="0">' + " "+ questions[i].answers[3] + '</input> <br>'
-        );
-
-        if (questions[0].answers[0] === "Zoolander 2"){
-            alert("hi");
-        }
-        
-
-
-
-        $("#quiz-area").append(newQDiv);
-
-
-        console.log(answerButtons);
-    }
-
-}
-
+$("#submit").hide()
 
 //start
 $("#start").on("click", function () {
-    $("#start").hide();
-    displayQuestion()
+    $("#start").remove();
+    $("#submit").show();
+    displayQuestion();
 
 })
 
 
 
+//questions
+let questions = [
+    {
+        question: "What classic horror movie is set in Haddonfield, Illinois?",
+        choices: ["Nightmare on Elm Street", "Psycho", "Halloween", "Friday the 13th"],
+        answer: "Halloween"
+    },
+    {
+        question: "Which of the following movies is set at a summer camp?",
+        choices: ["The Shining", "When a Stranger Calls", "Carrie", "Friday the 13th"],
+        answer: "Friday the 13th"
+    },
+    {
+        question: "How many killers are revealed at the end of “Scream?”",
+        choices: ["1", "2", "3", "4"],
+        answer: "2"
+    },
+    {
+        question: "Leatherface was a character in what horror film?",
+        choices: ["Carrie", "The Texas Chainsaw Massacre", "Psycho", "The Blair Witch Project"],
+        answer: "The Texas Chainsaw Massacre"
+    },
+];
+
+
+function displayQuestion() {
+    //  question display
+    for (let i = 0; i < questions.length; i++) {
+        var newDivQ = $("<div id='questions'>");
+        newDivQ.text(questions[i].question);
+
+        for (let j = 0; j < questions[i].choices.length; j++) {
+            var newDivC = $("<div id='choices'>");
+            newDivC.text(questions[i].choices[j]);
+            $("#quiz-area").append(newDivQ);
+            newDivQ.append(newDivC);
+        }
+    };
+};
+
+
+
+
+
+
+
+
+
+{/* <form>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" checked>Option 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio">Option 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio">Option 3
+    </label>
+  </form> */}
 

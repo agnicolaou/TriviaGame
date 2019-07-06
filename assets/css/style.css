@@ -5,3 +5,17 @@
 body{
     background-color: aqua;
 }
+
+
+#questions{
+   font-style: italic;
+   font-weight: bold;
+   margin-top: 20px;
+}
+
+#choices{
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
