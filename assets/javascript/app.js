@@ -43,7 +43,7 @@ function displayQuestion() {
 
         for (let j = 0; j < questions[i].choices.length; j++) {
             var newDivC = $("<div id='choices'>");
-            newDivC.text(questions[i].choices[j]);
+            newDivC.append('<input type = "radio" id=' + questions[i].choices[j] + ' name= "choice" value="j++">' + questions[i].choices[j] + '</input> <br>');
             $("#quiz-area").append(newDivQ);
             newDivQ.append(newDivC);
         }
@@ -52,7 +52,7 @@ function displayQuestion() {
 
 
 
-
+// '<input type = "radio" id=' + questions[i].choices[j] + ' name= "' + j + '" value=" ">' + questions[i].choices[j] + '</input> <br>'
 
 
 
