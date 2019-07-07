@@ -40,7 +40,6 @@ function displayQuestion() {
 
         for (let j = 0; j < questions[i].choices.length; j++) {
             var newDiv = $("<div>");
-
             newDiv.append("<input type = 'radio' name='question-'" + i + "'value='" + questions[i].choices[j] + "'>" + questions[i].choices[j])
             $("#quiz-area").append(newDiv);
         }
@@ -56,7 +55,6 @@ var game = {
         game.counter--;
         $("#counter").html(game.counter);
         if (game.counter <= 0) {
-            console.log("Time is up");
             game.done();
         }
     },
@@ -67,12 +65,13 @@ var game = {
         displayQuestion();
     },
 
-    // $("#sub-wrapper").append($("#submit"));
+
+
 
 
     done: function () {
         $.each($('input[name = "question-0"]:checked'), function () {
-            if ($(this.val() == questions[0].answer)) {
+            if ($(this).val() == questions[0].answer) {
                 game.correct++;
             }
             else {
@@ -82,7 +81,7 @@ var game = {
         });
 
         $.each($('input[name = "question-1"]:checked'), function () {
-            if ($(this.val() == questions[1].answer)) {
+            if ($(this).val() == questions[1].answer) {
                 game.correct++;
             }
             else {
@@ -91,7 +90,7 @@ var game = {
         });
 
         $.each($('input[name = "question-2"]:checked'), function () {
-            if ($(this.val() == questions[2].answer)) {
+            if ($(this).val() == questions[2].answer) {
                 game.correct++;
             }
             else {
@@ -100,7 +99,7 @@ var game = {
         });
 
         $.each($('input[name = "question-3"]:checked'), function () {
-            if ($(this.val() == questions[3].answer)) {
+            if ($(this).val() == questions[3].answer) {
                 game.correct++;
             }
             else {
@@ -114,10 +113,9 @@ var game = {
 
     result: function () {
         clearInterval(timer);
-        $("#sub-wrapper").remove();
-        $("#sub-wrapper").html("FINISHED!");
-        $("#sub-wrapper").append("Correct: " + this.correct);
-        $("#sub-wrapper").append("Incorrect: " + this.incorrect);
-        $("#sub-wrapper").append("Unanswered: " + questions.length - (this.incorrect + this.correct));
+        $("#sub-wrapper").html('<h1>'+"FINISHED!"+'</h1>');
+        $("#sub-wrapper").append('<h3>'+"Correct: " + this.correct+'</h3>');
+        $("#sub-wrapper").append('<h3>'+"Incorrect: " + this.incorrect+'</h3>');
+        $("#sub-wrapper").append('<h3>'+"Unanswered: " + (questions.length - (this.incorrect + this.correct))+'</h3>');
     }
 };
