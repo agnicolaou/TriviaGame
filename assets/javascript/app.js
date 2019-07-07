@@ -31,21 +31,19 @@ let questions = [
     },
 ];
 
-
-
 function displayQuestion() {
     //  question display
     for (let i = 0; i < questions.length; i++) {
         $("#quiz-area").append(questions[i].question);
 
         for (let j = 0; j < questions[i].choices.length; j++) {
-            var newDiv = $("<div>");
-            newDiv.append("<input type = 'radio' name='question-'" + i + "'value='" + questions[i].choices[j] + "'>" + questions[i].choices[j])
+            var newDiv = $("<div id='choices'>");
+            $("#quiz-area").append(newDiv);
+            newDiv.append("<input type = 'radio' name='question-" + i + "'value='" + questions[i].choices[j] + "'>" + questions[i].choices[j])
             $("#quiz-area").append(newDiv);
         }
     };
 };
-
 
 var game = {
     correct: 0,
