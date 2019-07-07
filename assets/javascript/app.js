@@ -3,10 +3,8 @@ $("#submit").hide()
 //start
 $("#start").on("click", function () {
     $("#start").remove();
-    $("#submit").show();
     displayQuestion();
-
-})
+});
 
 
 
@@ -35,38 +33,20 @@ let questions = [
 ];
 
 
+
 function displayQuestion() {
     //  question display
     for (let i = 0; i < questions.length; i++) {
-        var newDivQ = $("<div id='questions'>");
-        newDivQ.text(questions[i].question);
+        $("#quiz-area").append(questions[i].question);
 
         for (let j = 0; j < questions[i].choices.length; j++) {
-            var newDivC = $("<div id='choices'>");
-            newDivC.append('<input type = "radio" id=' + questions[i].choices[j] + ' name= "choice" value="j++">' + questions[i].choices[j] + '</input> <br>');
-            $("#quiz-area").append(newDivQ);
-            newDivQ.append(newDivC);
+            var newDiv = $("<div>");
+            
+            newDiv.append("<input type = 'radio' name='question-" + i + "'value='" + questions[i].choices[j] + "'>" + questions[i].choices[j])
+            $("#quiz-area").append(newDiv);
         }
     };
 };
 
 
-
-// '<input type = "radio" id=' + questions[i].choices[j] + ' name= "' + j + '" value=" ">' + questions[i].choices[j] + '</input> <br>'
-
-
-
-
-
-{/* <form>
-    <label class="radio-inline">
-      <input type="radio" name="optradio" checked>Option 1
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="optradio">Option 2
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="optradio">Option 3
-    </label>
-  </form> */}
 
