@@ -1,10 +1,26 @@
+$( document ).ready(function() {
+
+
+
 $("#submit").hide();
 
 //start
 $("#start").on("click", function () {
     game.start();
+    $("#title").text("THE CLOCK IS TICKING!");
 });
 
+
+function displaySubmit(){
+    $("#submit").show();
+    $("#submit").on("click", function () {
+        game.done();
+    });
+};
+
+// $(document).on("click", "#reset", function(){
+//     game.start();
+// })
 
 
 //questions
@@ -41,18 +57,24 @@ function displayQuestion() {
             $("#quiz-area").append(newDiv);
             newDiv.append("<input type = 'radio' name='question-" + i + "'value='" + questions[i].choices[j] + "'>" + " " + " " + questions[i].choices[j])
             $("#quiz-area").append(newDiv);
+
         }
     };
+    //calling submit button
+    displaySubmit();
 };
 
 // score tally
 var game = {
     correct: 0,
     incorrect: 0,
-    counter: 60,
+    counter: 40,
     countdown: function () {
         game.counter--;
         $("#counter").html(game.counter);
+        if (game.counter <= 20){
+            $("#title").text("HURRY UP! YOUR LIFE DEPENDS ON IT...");
+        }
         if (game.counter <= 0) {
             game.done();
         }
@@ -61,11 +83,16 @@ var game = {
     // timer
     start: function () {
         timer = setInterval(game.countdown, 1000);
-        $("#timer").prepend("Time Left:  <span id='counter'> 120 </span > Seconds");
+        var timerDiv = $("<div id='timer'>");
+        timerDiv.append("Time Left:  <span id='counter'> 40 </span > Seconds");
+        $("#quiz-area").append(timerDiv);
         $("#start").remove();
         displayQuestion();
     },
 
+
+
+    // checks for user answer choice for each question
     done: function () {
         $.each($('input[name = "question-0"]:checked'), function () {
             if ($(this).val() == questions[0].answer) {
@@ -77,7 +104,6 @@ var game = {
 
         });
 
-        // checks for user answer choice for each question
         $.each($('input[name = "question-1"]:checked'), function () {
             if ($(this).val() == questions[1].answer) {
                 game.correct++;
@@ -109,13 +135,36 @@ var game = {
 
     },
 
-
     // uses user answer choice to determine if it is correct/incorrect/unanswered and appends the corresponding info to div
     result: function () {
         clearInterval(timer);
-        $("#sub-wrapper").html('<h1>' + "FINISHED!" + '</h1>');
+        $("#quiz-area").remove();
+        
+        if (this.correct === 4){
+            $("#title").text("WAY TO GO, KILLER!");
+        }
+        else if (this.correct === 3){
+            $("#title").text("YOU BARELY MADE IT OUT!");
+        }
+        else if (this.correct === 2){
+            $("#title").text("TAKE ANOTHER STAB AT IT!");
+        }
+        else if (this.correct === 1){
+            $("#title").text("NOT EVEN WORTH THE CHASE!");
+        }
+        else{
+            $("#title").text("BETTER OFF DEAD!");
+        };
+
+        
+        
         $("#sub-wrapper").append('<h3>' + "Correct: " + this.correct + '</h3>');
         $("#sub-wrapper").append('<h3>' + "Incorrect: " + this.incorrect + '</h3>');
         $("#sub-wrapper").append('<h3>' + "Unanswered: " + (questions.length - (this.incorrect + this.correct)) + '</h3>');
+        // $("#sub-wrapper").prepend("<button id='reset'>TRY AGAIN</button>");
     }
+
 };
+
+
+});
