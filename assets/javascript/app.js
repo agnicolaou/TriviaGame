@@ -45,10 +45,11 @@ function displayQuestion() {
     };
 };
 
+// score tally
 var game = {
     correct: 0,
     incorrect: 0,
-    counter: 10,
+    counter: 60,
     countdown: function () {
         game.counter--;
         $("#counter").html(game.counter);
@@ -56,16 +57,14 @@ var game = {
             game.done();
         }
     },
+
+    // timer
     start: function () {
         timer = setInterval(game.countdown, 1000);
         $("#timer").prepend("Time Left:  <span id='counter'> 120 </span > Seconds");
         $("#start").remove();
         displayQuestion();
     },
-
-
-
-
 
     done: function () {
         $.each($('input[name = "question-0"]:checked'), function () {
@@ -78,6 +77,7 @@ var game = {
 
         });
 
+        // checks for user answer choice for each question
         $.each($('input[name = "question-1"]:checked'), function () {
             if ($(this).val() == questions[1].answer) {
                 game.correct++;
@@ -109,6 +109,8 @@ var game = {
 
     },
 
+
+    // uses user answer choice to determine if it is correct/incorrect/unanswered and appends the corresponding info to div
     result: function () {
         clearInterval(timer);
         $("#sub-wrapper").html('<h1>' + "FINISHED!" + '</h1>');
